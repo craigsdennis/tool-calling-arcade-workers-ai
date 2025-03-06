@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Zod to JSON Schema Converter</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/zod@3.22.2/lib/index.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/zod-to-json-schema@latest"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #1e1e1e;
+      font-family: 'Press Start 2P', Arial, sans-serif;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #2c2c2c;
+      border: 3px solid #cc6f4a;
+      border-radius: 10px;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      background: #1b0f07;
+      color: #ffcc00;
+      border: 3px solid #cc6f4a;
+      padding: 8px;
+      font-size: 14px;
+      margin-bottom: 10px; /* Added spacing */
+    }
+    button {
+      background: #cc6f4a;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 20px; /* Added spacing */
+    }
+    button:hover {
+      background: #e67e22;
+    }
+    .output {
+      background: #271b0f;
+      padding: 10px;
+      border: 3px solid #cc6f4a;
+      min-height: 100px;
+      text-align: left;
+      white-space: pre-wrap;
+      cursor: pointer;
+    }
+    .output.copied {
+      background: #3a2b1f;
+      color: #aaffaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Zod to JSON Schema</h1>
+    <div class="section">
+      <label for="zodInput">Enter Zod Schema:</label>
+      <textarea id="zodInput" placeholder="Enter your Zod schema here..."></textarea>
+    </div>
+    <button onclick="convertZodToJson()">Convert to JSON Schema</button>
+    <div class="section">
+      <h3>Generated JSON Schema:</h3>
+      <div id="jsonOutput" class="output" onclick="copyToClipboard()">The JSON Schema will appear here...</div>
+    </div>
+  </div>
+
+  <script>
+    function convertZodToJson() {
+      const zodCode = document.getElementById("zodInput").value.trim();
+      const outputBox = document.getElementById("jsonOutput");
+
+      if (!zodCode) {
+        outputBox.textContent = "Please enter a Zod schema.";
+        return;
+      }
+
+      try {
+        const schema = eval(zodCode); // Parses user-entered Zod schema
+        const jsonSchema = ZodToJsonSchema(schema);
+        outputBox.textContent = JSON.stringify(jsonSchema, null, 2);
+        outputBox.classList.remove("copied");
+      } catch (error) {
+        outputBox.textContent = "Error parsing Zod schema: " + error.message;
+      }
+    }
+
+    function copyToClipboard() {
+      const outputBox = document.getElementById("jsonOutput");
+      const text = outputBox.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        outputBox.classList.add("copied");
+        outputBox.textContent = "Copied to clipboard! Click again to copy.";
+        setTimeout(() => {
+          outputBox.classList.remove("copied");
+          outputBox.textContent = text;
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

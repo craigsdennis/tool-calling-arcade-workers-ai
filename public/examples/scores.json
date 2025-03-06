@@ -1,0 +1,24 @@
+[
+	{
+		"name": "getHighScore",
+		"description": "Returns the highest score and initials of the player who earned them"
+	},
+	{
+		"name": "addScore",
+		"description": "Adds a new score to the game",
+		"parameters": {
+			"type": "object",
+			"properties": {
+				"score": {
+					"type": "number",
+					"description": "The points earned at the end of the game"
+				},
+				"initials": {
+					"type": "string",
+					"description": "The initials of the player of the game who earned this score"
+				}
+			},
+			"required": ["score", "initials"]
+		}
+	}
+]

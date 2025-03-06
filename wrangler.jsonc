@@ -4,12 +4,14 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "tool-calling-construction-site",
+	"name": "tool-calling-arcade",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-03-03",
 	"observability": {
 		"enabled": true
-	}
+	},
+	"assets": {"binding": "ASSETS", "directory": "./public"},
+	"ai": {"binding": "AI"}
   /**
    * Smart Placement
    * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

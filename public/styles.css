@@ -1,0 +1,78 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background-color: #100c08;
+  background-image: url('background.png');
+  background-size: 256px 256px;
+  background-repeat: repeat;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  color: #fffbe6;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 8px solid #cc6f4a;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+  position: relative;
+  background: rgba(0, 0, 0, 0.6);
+}
+.header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 80px;
+}
+.floating-gorilla {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: auto;
+  animation: float 2s infinite alternate ease-in-out;
+}
+@keyframes float {
+  0% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-50%) translateY(-5px); }
+}
+h1 {
+  font-size: 20px;
+  color: #ffcc00;
+  text-shadow: 2px 2px #bf1e2e;
+  margin-top: 20px;
+}
+.barrel-button {
+  background: url('barrel-button.png') no-repeat center;
+  background-size: contain;
+  width: 60px;
+  height: 60px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.barrel-button:hover { transform: scale(1.1); }
+.barrel-button:active { transform: scale(0.9); }
+.section {
+  background: rgba(58, 43, 31, 0.9);
+  border: 3px solid #cc6f4a;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: block;
+}
+.CodeMirror {
+  height: 200px;
+  border: 3px solid #cc6f4a;
+  font-size: 12px;
+  text-align: left;
+  background: #ffffff;
+}
+.error-message {
+  color: #ff5733;
+  font-size: 14px;
+  margin-top: 5px;
+}

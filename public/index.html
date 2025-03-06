@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tool Calling Arcade</title>
+
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/eclipse.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/lint/json-lint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/lint/lint.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img class="floating-gorilla" src="gorilla.png" alt="Pixel Art Gorilla Holding Barrel">
+      <h1>Tool Calling Arcade</h1>
+    </div>
+
+    <div class="section">
+      <h3>Sample Tools</h3>
+      <ul id="sampleList" class="sample-list">Loading samples...</ul>
+    </div>
+
+    <div class="section">
+      <label for="modelSelect">Choose Model</label>
+      <select id="modelSelect">
+        <option value="@cf/meta/llama-3.3-70b-instruct-fp8-fast">llama-3.3-70b-instruct-fp8-fast</option>
+        <option value="@cf/meta/llama-3.2-3b-instruct">llama-3.2-3b-instruct</option>
+        <option value="@hf/nousresearch/hermes-2-pro-mistral-7b">hermes-2-pro-mistral-7b</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <label for="toolDefInput">Tool Definition (JSON)</label>
+      <textarea id="toolDefInput" placeholder="Define your tool (or multiple tools) here..."></textarea>
+      <div id="errorMessage" class="error-message"></div>
+    </div>
+
+    <div class="section">
+      <label for="messageInput">Message to Model</label>
+      <textarea id="messageInput" placeholder="Type a message to your existing chat..."></textarea>
+      <button class="barrel-button" onclick="callAPI()"></button>
+    </div>
+
+    <div class="section">
+      <h3>Output</h3>
+      <div id="outputBox" class="output-box">Response will appear here...</div>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
