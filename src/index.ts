@@ -50,26 +50,28 @@ app.post('/api/chat', async(c) => {
 	const toolBox = new ToolBox(c.env);
 	const toolCalls = result.tool_calls;
 	for (const toolCall of toolCalls) {
-		console.log("toolCall as JSON", JSON.stringify(toolCall));
+		messages.push({
+			role: "assistant",
+			content: JSON.stringify(toolCall)
+		});
 		if (toolBox.hasTool(toolCall.name)) {
 			const toolResult = await toolBox.callTool(toolCall.name, toolCall.arguments);
 			// Add the results
 			messages.push({
 				role: "tool",
-				name: toolCall.name,
 				content: JSON.stringify(toolResult)
 			});
 		} else {
 			messages.push({
 				role: "tool",
-				name: toolCall.name,
 				content: `Error the tool named ${toolCall.name} was not found`
 			});
 		}
 	}
 	// Run again with new tool responses
 	const finalResults = await c.env.AI.run(payload.model, {
-		messages
+		messages,
+		tools
 	});
 	console.log({finalResults, messages, toolCalls});
     return c.json({responseMessage: finalResults.response, messages, toolCalls});
